@@ -16,12 +16,31 @@ defmodule DiscussWeb.TopicController do
 
   def create(conn, %{"topic" => topic_params}) do
     case Forum.create_topic(topic_params) do
-      {:ok, topic} ->
+      {:ok, _topic} ->
         conn
         |> put_flash(:info, "Topic created successfully.")
         |> redirect(to: topic_path(conn, :index))
-      {:error, changeset} ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
+    end
+  end
+
+  def edit(conn, %{"id" => id}) do
+    topic = Forum.get_topic!(id)
+    changeset = Forum.change_topic(topic)
+    render(conn, "edit.html", topic: topic, changeset: changeset)
+  end
+
+  def update(conn, %{"id" => id, "topic" => topic_params}) do
+    topic = Forum.get_topic!(id)
+
+    case Forum.update_topic(topic, topic_params) do
+      {:ok, _topic} ->
+        conn
+        |> put_flash(:info, "Topic successfully saved")
+        |> redirect(to: topic_path(conn, :index))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", topic: topic, changeset: changeset)
     end
   end
 
