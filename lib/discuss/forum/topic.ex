@@ -1,7 +1,7 @@
-defmodule Discuss.Topic do
+defmodule Discuss.Forum.Topic do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Discuss.Topic
+  alias Discuss.Forum.Topic
 
 
   schema "topics" do
@@ -11,9 +11,10 @@ defmodule Discuss.Topic do
   end
 
   @doc false
-  def changeset(%Topic{} = topic, attrs) do
+  def changeset(topic, attrs) do
     topic
     |> cast(attrs, [:title])
     |> validate_required([:title])
   end
+
 end
