@@ -84,4 +84,20 @@ defmodule Discuss.Forum do
     |> Topic.changeset(attrs)
     |> Repo.update()
   end
+
+  @doc """
+  Deletes a topic.
+
+  ## Examples
+
+      iex> delete_topic(topic)
+      {:ok, %Topic{}}
+
+      iex> delete_topic(topic)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_topic(%Topic{} = topic) do
+    Repo.delete(topic)
+  end
 end
