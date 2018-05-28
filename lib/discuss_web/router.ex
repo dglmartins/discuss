@@ -23,8 +23,10 @@ defmodule DiscussWeb.Router do
   scope "/auth", DiscussWeb do
     pipe_through :browser # Use the default browser stack
 
+    get "/signout", AuthController, :signout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
+
   end
 
   # Other scopes may use custom stacks.
