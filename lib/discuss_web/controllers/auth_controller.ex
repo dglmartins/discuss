@@ -12,9 +12,10 @@ defmodule DiscussWeb.AuthController do
 
   defp signin(conn, user_params) do
     case Accounts.insert_or_update_user(user_params) do
-      {:ok, %User{email: email}} ->
+      {:ok, user} ->
         conn
-        |> put_flash(:info, "Hello #{email}")
+        |> put_flash(:info, "Hello #{conn.assigns.user.email}")
+        |> put_session(:user_id, user.id)
         |> redirect(to: topic_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn
