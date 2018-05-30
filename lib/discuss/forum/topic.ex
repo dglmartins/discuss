@@ -1,12 +1,11 @@
 defmodule Discuss.Forum.Topic do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Discuss.Forum.Topic
-
 
   schema "topics" do
     field :title, :string
-    belongs_to :user, DiscussWeb.Accounts.User
+    belongs_to :user, Discuss.Accounts.User
+    has_many :comments, Discuss.Forum.Comment
 
     timestamps()
   end
