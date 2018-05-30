@@ -6,6 +6,7 @@ defmodule Discuss.Forum do
   import Ecto.Query, warn: false
   alias Discuss.Repo
   alias Discuss.Forum.Topic
+  alias Discuss.Accounts.User
 
   @doc """
   Returns the list of topic.
@@ -32,9 +33,10 @@ defmodule Discuss.Forum do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_topic(attrs \\ %{}) do
+  def create_topic(%User{} = user, attrs \\ %{}) do
     %Topic{}
     |> Topic.changeset(attrs)
+    |> Ecto.Changeset.put_change(:user_id, user.id)
     |> Repo.insert()
   end
 

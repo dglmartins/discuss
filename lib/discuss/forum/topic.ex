@@ -6,6 +6,7 @@ defmodule Discuss.Forum.Topic do
 
   schema "topics" do
     field :title, :string
+    belongs_to :user, DiscussWeb.Accounts.User
 
     timestamps()
   end
