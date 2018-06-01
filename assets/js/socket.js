@@ -59,6 +59,7 @@ const createSocket = (topicId) => {
   channel.join()
 
     .receive("ok", resp => {
+        console.log(resp)
         renderComments(resp.comments)
     })
 
@@ -84,9 +85,14 @@ function renderComment(event) {
 }
 
 function commentTemplate(comment) {
+  const email = comment.user.email;
+
   return `
     <li class="collection-item">
       ${comment.content}
+      <div class="secondary-content">
+        ${email}
+      </div>
     </li>`
 }
 
