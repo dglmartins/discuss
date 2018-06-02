@@ -65,13 +65,14 @@ const createSocket = (topicId) => {
 
     .receive("error", resp => { console.log("Unable to join", resp) })
 
-    channel.on(`comments:${topicId}:new`, renderComment);
+  channel.on(`comments:${topicId}:new`, renderComment);
 
-    document.querySelector('button').addEventListener('click', () => {
-      const content = document.querySelector('textarea').value;
+  document.querySelector('button').addEventListener('click', () => {
+    console.log("I get called")
+    const content = document.querySelector('textarea').value;
 
-      channel.push('comment:add', {content});
-    });
+    channel.push('comment:add', {content: content});
+  });
 };
 
 function renderComments(comments) {
